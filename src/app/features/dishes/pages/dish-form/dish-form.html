@@ -1,1 +1,62 @@
-<p>dish-form works!</p>
+<form [formGroup]="dishForm" (ngSubmit)="onSubmit()" class="dish-form">
+  <h2>Dish Details Form</h2>
+
+  @if (saving()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <!-- Name Field -->
+  <mat-form-field >
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="e.g. Soup" />
+    @if (dishForm.controls.name.hasError('required')) { 
+      <mat-error>Name is required</mat-error>
+    } @else if (dishForm.controls.name.hasError('minlength')) {
+      <mat-error>Name must be at least 2 characters</mat-error>
+    } @else if (dishForm.controls.name.hasError('maxlength')) {
+      <mat-error>Name must be 30 characters or fewer</mat-error>
+    } @else if (dishForm.controls.name.hasError('blank')) {
+      <mat-error>Name cannot be only spaces</mat-error>
+    }
+  </mat-form-field>
+
+
+  <!-- Price Field -->
+  <mat-form-field >
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" placeholder="e.g. 8.50" />
+    @if (dishForm.controls.price.hasError('required')) { 
+      <mat-error>Price is required</mat-error>
+    } @else if (dishForm.controls.price.hasError('min')) {
+      <mat-error>Price must be at least 0</mat-error>
+    }
+  </mat-form-field>
+    
+  <!-- Menu Field -->
+  <mat-form-field>
+    <mat-label>Select</mat-label>
+    <mat-select>
+        <mat-option value="Breakfast">Breakfast</mat-option>
+        <mat-option value="Lunch">Lunch</mat-option>
+        <mat-option value="Dinner">Dinner</mat-option>
+        <mat-option value="Dessert">Dessert</mat-option>
+    </mat-select>
+    @if (dishForm.controls.menu.hasError('min')) {
+      <mat-error>Menu must be at least 1950</mat-error>
+    } @else if (dishForm.controls.menu.hasError('max')) {
+      <mat-error>Menu must be at most {{ currentYear + 1 }}</mat-error>
+    }
+  </mat-form-field>
+
+
+
+  @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
+  <div class="button-group">
+    <button matButton="elevated" type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save dish' }}
+    </button>
+    <a matButton="tonal" routerLink="/dishes">Cancel</a>
+  </div>
+
+
+</form>

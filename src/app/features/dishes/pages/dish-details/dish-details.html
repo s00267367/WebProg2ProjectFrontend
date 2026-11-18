@@ -1,1 +1,33 @@
-<p>dish-details works!</p>
+<h2>Dish Details</h2>
+
+<p> Dish Id is {{id()}}</p>
+
+@let s = state();
+@if (s.status === 'loading') {
+    <p>Loading car details...</p>
+} @else if (s.status === 'error') {
+    <p>{{ s.message }}</p>
+} @else {
+    <h2>{{ s.data.name }} {{ s.data.price }}</h2>
+    <p>Menu: {{s.data.availability.menu}}</p>
+    <p>Special: {{s.data.availability.special}}</p>
+    
+    <h3>Ingredients</h3>
+    @for (ing of s.data.ingredients; track ing) {
+        <p>{{ing.name}}: {{ing.quantity}}</p>
+    }
+
+    <h3>Allergens</h3>
+    @if(s.data.allergens){
+        @for (all of s.data.allergens; track all) {
+            <p>{{all.name}} from {{all.ingredients}}</p>
+        }
+    }
+
+    <a matButton="filled" [routerLink]="['/cars', s.data._id, 'edit']">Edit</a>
+    <button matButton="outlined" [disabled]="deleting()" (click)="deleteDish(s.data)">Delete</button>
+    @if (deleteError(); as message) {
+      <p class="error">{{ message }}</p>
+    }
+    
+}

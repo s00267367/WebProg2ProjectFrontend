@@ -23,13 +23,13 @@ export interface IDish {
 }
 
 export interface CreateDishDto {
-  make: string;
-  model: string;
-  year?: number;
+  name: string;
+  price: number;
+  menu: string;
 }
 
 export interface UpdateDishDto {
-  make: string;
-  model: string;
-  year?: number;
+  name: string;
+  price: number;
+  menu: string;
 }
