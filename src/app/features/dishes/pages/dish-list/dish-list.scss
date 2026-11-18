@@ -1,9 +1,11 @@
 .dish-card-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 .dish-list-container{
     display: flex;
-    -ms-flex-align: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
