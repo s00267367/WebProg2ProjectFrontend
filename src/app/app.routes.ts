@@ -4,7 +4,7 @@ import { DishForm } from './features/dishes/pages/dish-form/dish-form';
 import { DishDetails } from './features/dishes/pages/dish-details/dish-details';
 
 export const routes: Routes = [
-     {
+  {
     path: '',
     redirectTo: 'dishes',
     pathMatch: 'full'

@@ -1,1 +1,13 @@
-<p>dish-card works!</p>
+
+<mat-card class="card" appearance="outlined">
+  <mat-card-header>
+    
+    <mat-card-title>{{dish().name}}   €{{dish().price}}</mat-card-title>
+    
+    <mat-card-subtitle>{{dish().availability.menu}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions>
+    <a matButton="filled" [routerLink]="['/dishes', dish()._id]">View Profile</a>
+  </mat-card-actions>
+</mat-card>

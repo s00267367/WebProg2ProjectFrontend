@@ -1,0 +1,35 @@
+interface IIngredient {
+  name: string;
+  quantity: string;
+}
+
+interface IAllergen {
+  name: string;
+  ingredients: string[];
+}
+
+interface IAvailability {
+  menu: string;
+  special: boolean;
+}
+
+export interface IDish {
+  _id: string,
+  name: string;
+  price: number;
+  ingredients: IIngredient[];
+  allergens: IAllergen[];
+  availability: IAvailability;
+}
+
+export interface CreateDishDto {
+  make: string;
+  model: string;
+  year?: number;
+}
+
+export interface UpdateDishDto {
+  make: string;
+  model: string;
+  year?: number;
+}
