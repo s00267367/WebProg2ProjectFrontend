@@ -26,10 +26,16 @@ export interface CreateDishDto {
   name: string;
   price: number;
   menu: string;
+  special: boolean;
+  ingredients: IIngredient[];
+  allergens: IAllergen[];
 }
 
 export interface UpdateDishDto {
   name: string;
   price: number;
   menu: string;
+  special: boolean;
+  ingredients: IIngredient[];
+  allergens: IAllergen[];
 }

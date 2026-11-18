@@ -34,21 +34,25 @@
     
   <!-- Menu Field -->
   <mat-form-field>
-    <mat-label>Select</mat-label>
-    <mat-select>
+    <mat-label>Menu</mat-label>
+    <mat-select formControlName="menu">
         <mat-option value="Breakfast">Breakfast</mat-option>
         <mat-option value="Lunch">Lunch</mat-option>
         <mat-option value="Dinner">Dinner</mat-option>
         <mat-option value="Dessert">Dessert</mat-option>
     </mat-select>
-    @if (dishForm.controls.menu.hasError('min')) {
-      <mat-error>Menu must be at least 1950</mat-error>
-    } @else if (dishForm.controls.menu.hasError('max')) {
-      <mat-error>Menu must be at most {{ currentYear + 1 }}</mat-error>
-    }
   </mat-form-field>
 
+  <!-- Special Field -->
+  <div>
+    <mat-label>Special</mat-label>
+    <mat-radio-group formControlName="special" aria-label="Select an option">
+        <mat-radio-button [value]="true">True</mat-radio-button>
+        <mat-radio-button [value]="false">False</mat-radio-button>
+    </mat-radio-group>
+  </div>
 
+  <!--I need to learn form arrays for ingredient and allergens-->
 
   @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
