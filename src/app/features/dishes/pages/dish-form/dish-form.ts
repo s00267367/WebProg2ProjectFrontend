@@ -1,6 +1,6 @@
 import { Component, inject, input, signal, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
-import { CreateDishDto } from '../../models/dish.model';
+import { CreateDishDto, IIngredient, IAllergen } from '../../models/dish.model';
 import { DishService } from '../../services/dish-service';
 import { notBlank } from '../../../../shared/validators/not-blank.validator';
 import { Router, RouterLink } from '@angular/router';
@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelect, MatSelectModule, MatOption } from '@angular/material/select';
 import { MatRadioButton, MatRadioModule, MatRadioGroup } from '@angular/material/radio';
+
 
 // FormGroup representing one ingredient
 type IngredientForm = FormGroup<{
@@ -54,8 +55,8 @@ export class DishForm {
       menu:  ['', [Validators.required, notBlank]],
       special: [false]
     }),
-    ingredients: this.formBuilder.array<IngredientForm>([this.createIngredient()]),
-    allergens: this.formBuilder.array<AllergenForm>([this.createAllergen()])
+    ingredients: this.formBuilder.array<IngredientForm>([]),
+    allergens: this.formBuilder.array<AllergenForm>([])
   });
 
 
@@ -93,17 +94,35 @@ export class DishForm {
     if (!id) return; // adding a new dish, nothing to load
 
     this.dishService.getDishById(id).subscribe({
-      next: (dish) =>
-        this.dishForm.patchValue({ name: dish.name, price: dish.price, availability: dish.availability, ingredients: dish.ingredients ,allergens: dish.allergens }),
+      next: (dish) =>{
+        this.dishForm.patchValue({ 
+          name: dish.name, 
+          price: dish.price, availability: 
+          dish.availability 
+        });
+
+        this.ingredients.clear();
+
+        dish.ingredients.forEach(ingredient => {
+          this.ingredients.push(this.createIngredient(ingredient));
+        });
+
+        this.allergens.clear();
+
+        dish.allergens.forEach(allergen => {
+          this.allergens.push(this.createAllergen(allergen));
+        });
+
+      },
       error: (err: Error) => this.saveError.set(err.message),
     });
   }
 
   //ingredients methods for form array
-  createIngredient(): IngredientForm {
+  createIngredient(ingredient?: IIngredient): IngredientForm {
     return this.formBuilder.nonNullable.group({
-      name: ['', Validators.required],
-      quantity: ['', Validators.required]
+      name: [ingredient?.name ?? '', Validators.required],
+      quantity: [ingredient?.quantity ?? '', Validators.required]
     });
   }
 
@@ -120,12 +139,12 @@ export class DishForm {
   }
 
   //allergend method for form array
-  createAllergen(): AllergenForm {
+  createAllergen(allergen?: IAllergen): AllergenForm {
     return this.formBuilder.nonNullable.group({
-      name: ['', Validators.required],
-      ingredients: this.formBuilder.array([
-        this.formBuilder.nonNullable.control('')
-      ])
+      name: [allergen?.name ?? '', Validators.required],
+      ingredients: this.formBuilder.array(
+      allergen?.ingredients.map(ingredient =>
+        this.formBuilder.nonNullable.control(ingredient)) ?? [])
     });
   }
 

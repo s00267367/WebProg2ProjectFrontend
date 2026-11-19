@@ -24,7 +24,7 @@
         }
     }
 
-    <a matButton="filled" [routerLink]="['/cars', s.data._id, 'edit']">Edit</a>
+    <a matButton="filled" [routerLink]="['/dishes', s.data._id, 'edit']">Edit</a>
     <button matButton="outlined" [disabled]="deleting()" (click)="deleteDish(s.data)">Delete</button>
     @if (deleteError(); as message) {
       <p class="error">{{ message }}</p>

@@ -1,9 +1,9 @@
-interface IIngredient {
+export interface IIngredient {
   name: string;
   quantity: string;
 }
 
-interface IAllergen {
+export interface IAllergen {
   name: string;
   ingredients: string[];
 }
