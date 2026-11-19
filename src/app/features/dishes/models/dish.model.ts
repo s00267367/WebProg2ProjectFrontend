@@ -25,8 +25,7 @@ export interface IDish {
 export interface CreateDishDto {
   name: string;
   price: number;
-  menu: string;
-  special: boolean;
+  availability: IAvailability;
   ingredients: IIngredient[];
   allergens: IAllergen[];
 }
@@ -34,8 +33,7 @@ export interface CreateDishDto {
 export interface UpdateDishDto {
   name: string;
   price: number;
-  menu: string;
-  special: boolean;
+  availability: IAvailability;
   ingredients: IIngredient[];
   allergens: IAllergen[];
 }

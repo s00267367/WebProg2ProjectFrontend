@@ -22,38 +22,116 @@
 
 
   <!-- Price Field -->
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput formControlName="price" placeholder="e.g. 8.50" />
+    <input matInput type="number" formControlName="price" placeholder="e.g. 8.50" />
     @if (dishForm.controls.price.hasError('required')) { 
       <mat-error>Price is required</mat-error>
     } @else if (dishForm.controls.price.hasError('min')) {
       <mat-error>Price must be at least 0</mat-error>
     }
   </mat-form-field>
-    
+  
+  <div formGroupName="availability">
+    <mat-form-field>
+      <mat-label>Menu</mat-label>
+      <mat-select formControlName="menu">
+          <mat-option value="breakfast">Breakfast</mat-option>
+          <mat-option value="lunch">Lunch</mat-option>
+          <mat-option value="dinner">Dinner</mat-option>
+          <mat-option value="dessert">Dessert</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <!-- Special Field -->
+    <div>
+      <mat-label>Special</mat-label>
+      <mat-radio-group formControlName="special" aria-label="Select an option">
+          <mat-radio-button [value]="true">True</mat-radio-button>
+          <mat-radio-button [value]="false">False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
   <!-- Menu Field -->
-  <mat-form-field>
-    <mat-label>Menu</mat-label>
-    <mat-select formControlName="menu">
-        <mat-option value="Breakfast">Breakfast</mat-option>
-        <mat-option value="Lunch">Lunch</mat-option>
-        <mat-option value="Dinner">Dinner</mat-option>
-        <mat-option value="Dessert">Dessert</mat-option>
-    </mat-select>
-  </mat-form-field>
 
-  <!-- Special Field -->
-  <div>
-    <mat-label>Special</mat-label>
-    <mat-radio-group formControlName="special" aria-label="Select an option">
-        <mat-radio-button [value]="true">True</mat-radio-button>
-        <mat-radio-button [value]="false">False</mat-radio-button>
-    </mat-radio-group>
+  <!-- Ingredients -->
+  <h3>Ingredients</h3>
+  
+  <div formArrayName="ingredients">
+  
+    @for (ingredient of ingredients.controls; track $index; let i = $index) {
+  
+      <div [formGroupName]="i" class="ingredient-row">
+  
+        <mat-form-field>
+          <mat-label>Ingredient</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. Flour">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Quantity</mat-label>
+          <input matInput formControlName="quantity" placeholder="e.g. 200g">
+        </mat-form-field>
+  
+        <button matButton="tonal" type="button" (click)="removeIngredient(i)">
+          Remove
+        </button>
+  
+      </div>
+    }
+  
+  </div>
+  
+  <button matButton="elevated" type="button" (click)="addIngredient()">
+    + Add Ingredient
+  </button>
+
+  <!-- Allergens -->
+  <h3>Allergens</h3>
+
+  <div formArrayName="allergens">
+
+    @for (allergen of allergens.controls; track $index; let i = $index) {
+
+      <div [formGroupName]="i" class="allergen-row">
+
+        <mat-form-field >
+          <mat-label>Allergen</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. Gluten">
+        </mat-form-field>
+
+        <button matButton="tonal" type="button" (click)="removeAllergen(i)">
+          Remove Allergen
+        </button>
+
+        <!--ingredients for allergens-->
+        <div formArrayName="ingredients">
+          @for (ingredient of getAllergenIngredients(i).controls; track $index; let j = $index) {
+            <div class="allergen-ingredient">
+              <mat-form-field>
+                <mat-label>Associated ingredient</mat-label>
+                <input matInput [formControlName]="j" placeholder="e.g. Wheat">
+              </mat-form-field>
+
+              <button matButton="tonal" type="button" (click)="removeAllergenIngredient(i, j)">
+                Remove
+              </button>
+            </div>
+          }
+        </div>
+
+        <button matButton="outlined" type="button" (click)="addAllergenIngredient(i)">
+          + Add Associated Ingredient
+        </button>
+      </div>
+    }
   </div>
 
-  <!--I need to learn form arrays for ingredient and allergens-->
+  <button matButton="outlined" type="button" (click)="addAllergen()">
+    + Add Allergen
+  </button>
 
+  <!--save for form-->
   @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
   <div class="button-group">
     <button matButton="elevated" type="submit" [disabled]="saving()">
