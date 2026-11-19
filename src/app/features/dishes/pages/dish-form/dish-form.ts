@@ -144,7 +144,8 @@ export class DishForm {
       name: [allergen?.name ?? '', Validators.required],
       ingredients: this.formBuilder.array(
       allergen?.ingredients.map(ingredient =>
-        this.formBuilder.nonNullable.control(ingredient)) ?? [])
+        this.formBuilder.nonNullable.control(ingredient)) ?? []
+      )
     });
   }
 

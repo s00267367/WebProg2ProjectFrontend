@@ -59,7 +59,7 @@
   
   <div formArrayName="ingredients">
   
-    @for (ingredient of ingredients.controls; track $index; let i = $index) {
+    @for (ingredient of ingredients.controls; track ingredient; let i = $index) {
   
       <div [formGroupName]="i" class="ingredient-row">
   
@@ -91,7 +91,7 @@
 
   <div formArrayName="allergens">
 
-    @for (allergen of allergens.controls; track $index; let i = $index) {
+    @for (allergen of allergens.controls; track allergen; let i = $index) {
 
       <div [formGroupName]="i" class="allergen-row">
 
@@ -106,7 +106,7 @@
 
         <!--ingredients for allergens-->
         <div formArrayName="ingredients">
-          @for (ingredient of getAllergenIngredients(i).controls; track $index; let j = $index) {
+          @for (ingredient of getAllergenIngredients(i).controls; track ingredient; let j = $index) {
             <div class="allergen-ingredient">
               <mat-form-field>
                 <mat-label>Associated ingredient</mat-label>
