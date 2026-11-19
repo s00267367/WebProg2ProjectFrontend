@@ -1,1 +1,1 @@
-.dish-card-container{display:grid;grid-template-columns:repeat(3, 1fr);gap:20px}.dish-list-container{display:flex;justify-content:center;align-items:center;min-height:100vh}/*# sourceMappingURL=dish-list.min.css.map */
+.dish-list-container{display:flex;justify-content:center;box-sizing:border-box;padding:50px;min-height:100vh;width:100%}.dish-card-container{display:grid;grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));gap:25px;width:100%;max-width:1200px;padding:20px;align-content:start}/*# sourceMappingURL=dish-list.min.css.map */

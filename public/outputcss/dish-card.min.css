@@ -1,1 +1,1 @@
-.dish-header{display:flex;justify-content:space-between;align-items:center}.card{margin:10px;min-width:325px;min-height:100px}/*# sourceMappingURL=dish-card.min.css.map */
+:host{display:block;min-width:0;width:100%;box-sizing:border-box}mat-card{width:100%;height:100%;box-sizing:border-box}mat-card-actions{margin-top:auto}/*# sourceMappingURL=dish-card.min.css.map */
