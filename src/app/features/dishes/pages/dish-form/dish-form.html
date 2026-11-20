@@ -92,7 +92,7 @@
   <div formArrayName="allergens">
 
     @for (allergen of allergens.controls; track allergen; let i = $index) {
-
+      <h4>Allergen {{i+1}}</h4>
       <div [formGroupName]="i" class="allergen-row">
 
         <mat-form-field >
@@ -100,9 +100,14 @@
           <input matInput formControlName="name" placeholder="e.g. Gluten">
         </mat-form-field>
 
-        <button matButton="tonal" type="button" (click)="removeAllergen(i)">
-          Remove Allergen
-        </button>
+        <div class="buttonGroup">
+          <button matButton="outlined" type="button" (click)="addAllergenIngredient(i)">
+            + Add Associated Ingredient
+          </button>
+          <button matButton="tonal" type="button" (click)="removeAllergen(i)">
+            Remove Allergen
+          </button>
+        </div>
 
         <!--ingredients for allergens-->
         <div formArrayName="ingredients">
@@ -120,9 +125,6 @@
           }
         </div>
 
-        <button matButton="outlined" type="button" (click)="addAllergenIngredient(i)">
-          + Add Associated Ingredient
-        </button>
       </div>
     }
   </div>

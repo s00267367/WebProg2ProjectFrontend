@@ -6,7 +6,15 @@
   max-width: 32rem;
   margin: 1rem auto;
 }
-
+.buttonGroup{
+  display: flex;
+  flex-direction: row;
+  padding: auto;
+  justify-content: center;
+}
+button{
+  margin: 10px;
+}
 mat-form-field {
   width: 100%;
 }
