@@ -73,7 +73,7 @@
           <input matInput formControlName="quantity" placeholder="e.g. 200g">
         </mat-form-field>
   
-        <button matButton="tonal" type="button" (click)="removeIngredient(i)">
+        <button id="removeBtn" matButton="tonal" type="button" (click)="removeIngredient(i)">
           Remove
         </button>
   
@@ -118,7 +118,7 @@
                 <input matInput [formControlName]="j" placeholder="e.g. Wheat">
               </mat-form-field>
 
-              <button matButton="tonal" type="button" (click)="removeAllergenIngredient(i, j)">
+              <button id="removeBtn" matButton="tonal" type="button" (click)="removeAllergenIngredient(i, j)">
                 Remove
               </button>
             </div>
@@ -135,7 +135,7 @@
 
   <!--save for form-->
   @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
-  <div class="button-group">
+  <div class="buttonGroup">
     <button matButton="elevated" type="submit" [disabled]="saving()">
       {{ saving() ? 'Saving...' : 'Save dish' }}
     </button>

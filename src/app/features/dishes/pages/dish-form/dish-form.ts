@@ -121,8 +121,8 @@ export class DishForm {
   //ingredients methods for form array
   createIngredient(ingredient?: IIngredient): IngredientForm {
     return this.formBuilder.nonNullable.group({
-      name: [ingredient?.name ?? '', Validators.required],
-      quantity: [ingredient?.quantity ?? '', Validators.required]
+      name: [ingredient?.name ?? '', [Validators.required, notBlank, Validators.minLength(2)]],
+      quantity: [ingredient?.quantity ?? '', [Validators.required, notBlank, Validators.minLength(2)]]
     });
   }
 
@@ -141,10 +141,10 @@ export class DishForm {
   //allergend method for form array
   createAllergen(allergen?: IAllergen): AllergenForm {
     return this.formBuilder.nonNullable.group({
-      name: [allergen?.name ?? '', Validators.required],
+      name: [allergen?.name ?? '', [Validators.required, notBlank, Validators.minLength(2)]],
       ingredients: this.formBuilder.array(
-      allergen?.ingredients.map(ingredient =>
-        this.formBuilder.nonNullable.control(ingredient)) ?? []
+        allergen?.ingredients.map(ingredient =>
+          this.formBuilder.nonNullable.control(ingredient, [Validators.required, notBlank, Validators.minLength(2)])) ?? []
       )
     });
   }
