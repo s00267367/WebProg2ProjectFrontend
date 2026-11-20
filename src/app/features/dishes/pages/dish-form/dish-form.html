@@ -66,11 +66,25 @@
         <mat-form-field>
           <mat-label>Ingredient</mat-label>
           <input matInput formControlName="name" placeholder="e.g. Flour">
+          @if (ingredient.controls.name.hasError('required')) { 
+            <mat-error>Name is required</mat-error>
+          } @else if (ingredient.controls.name.hasError('minlength')) {
+            <mat-error>Name must be at least 2 characters</mat-error>
+          } @else if (ingredient.controls.name.hasError('blank')) {
+            <mat-error>Name cannot be only spaces</mat-error>
+          }
         </mat-form-field>
   
         <mat-form-field>
           <mat-label>Quantity</mat-label>
           <input matInput formControlName="quantity" placeholder="e.g. 200g">
+          @if (ingredient.controls.quantity.hasError('required')) { 
+            <mat-error>Quantity is required</mat-error>
+          } @else if (ingredient.controls.quantity.hasError('minlength')) {
+            <mat-error>Quantity must be at least 2 characters</mat-error>
+          } @else if (ingredient.controls.quantity.hasError('blank')) {
+            <mat-error>Quantity cannot be only spaces</mat-error>
+          }
         </mat-form-field>
   
         <button id="removeBtn" matButton="tonal" type="button" (click)="removeIngredient(i)">
@@ -98,10 +112,17 @@
         <mat-form-field >
           <mat-label>Allergen</mat-label>
           <input matInput formControlName="name" placeholder="e.g. Gluten">
+          @if (allergen.controls.name.hasError('required')) { 
+            <mat-error>Allergen is required</mat-error>
+          } @else if (allergen.controls.name.hasError('minlength')) {
+            <mat-error>Allergen must be at least 2 characters</mat-error>
+          } @else if (allergen.controls.name.hasError('blank')) {
+            <mat-error>Allergen cannot be only spaces</mat-error>
+          }
         </mat-form-field>
 
         <div class="buttonGroup">
-          <button matButton="outlined" type="button" (click)="addAllergenIngredient(i)">
+          <button matButton="elevated" type="button" (click)="addAllergenIngredient(i)">
             + Add Associated Ingredient
           </button>
           <button matButton="tonal" type="button" (click)="removeAllergen(i)">
@@ -114,8 +135,15 @@
           @for (ingredient of getAllergenIngredients(i).controls; track ingredient; let j = $index) {
             <div class="allergen-ingredient">
               <mat-form-field>
-                <mat-label>Associated ingredient</mat-label>
+                <mat-label>Associated Ingredient</mat-label>
                 <input matInput [formControlName]="j" placeholder="e.g. Wheat">
+                @if (ingredient.hasError('required')) { 
+                  <mat-error>Ingredient is required</mat-error>
+                } @else if (ingredient.hasError('minlength')) {
+                  <mat-error>Ingredient must be at least 2 characters</mat-error>
+                } @else if (ingredient.hasError('blank')) {
+                  <mat-error>Ingredient cannot be only spaces</mat-error>
+                }
               </mat-form-field>
 
               <button id="removeBtn" matButton="tonal" type="button" (click)="removeAllergenIngredient(i, j)">
