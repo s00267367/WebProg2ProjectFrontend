@@ -1,18 +1,26 @@
-<h2>dish Inventory</h2>
-<div class="dish-list-container">
-
-  @let s = state();
-  @if (s.status === 'loading') {
-    <p>Loading dishes...</p>
-  } @else if (s.status === 'error') {
-    <p> {{ s.message }}</p>
-  } @else if (s.data.length === 0) {
-    <p>No dishes available at the moment.</p>
-  } @else {
-    <div class="dish-card-container">
-      @for (dish of s.data; track dish._id) {
-        <app-dish-card [dish]="dish" />
-      }
-    </div>
-  }
+<div id="container">
+  <div class="topMenu">
+    <h1>Dish Inventory</h1>
+    <a matButton="filled"  [routerLink]="['/dishes/new']">
+        <mat-icon>add</mat-icon>
+        Add New
+    </a>
+  </div>
+  <div class="dish-list-container">
+  
+    @let s = state();
+    @if (s.status === 'loading') {
+      <p>Loading dishes...</p>
+    } @else if (s.status === 'error') {
+      <p> {{ s.message }}</p>
+    } @else if (s.data.length === 0) {
+      <p>No dishes available at the moment.</p>
+    } @else {
+      <div class="dish-card-container">
+        @for (dish of s.data; track dish._id) {
+          <app-dish-card [dish]="dish" />
+        }
+      </div>
+    }
+  </div>
 </div>

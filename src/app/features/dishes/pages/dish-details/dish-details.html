@@ -1,12 +1,13 @@
+<h1>Dish Details</h1>
 <div id="detail-container">    
     @let s = state();
     @if (s.status === 'loading') {
-        <p>Loading car details...</p>
+        <p id="loading-centre">Loading car details...</p>
     } @else if (s.status === 'error') {
         <p>{{ s.message }}</p>
     } @else {
 
-        <mat-card appearance="outlined">
+        <mat-card>
             <mat-card-header>
                 <mat-card-title>{{s.data.name}}</mat-card-title>
                 <mat-card-subtitle>€{{s.data.price}}</mat-card-subtitle>
