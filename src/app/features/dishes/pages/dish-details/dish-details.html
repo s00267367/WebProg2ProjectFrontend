@@ -1,33 +1,54 @@
-<h2>Dish Details</h2>
+<div id="detail-container">    
+    @let s = state();
+    @if (s.status === 'loading') {
+        <p>Loading car details...</p>
+    } @else if (s.status === 'error') {
+        <p>{{ s.message }}</p>
+    } @else {
 
-<p> Dish Id is {{id()}}</p>
+        <mat-card appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>{{s.data.name}}</mat-card-title>
+                <mat-card-subtitle>€{{s.data.price}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Menu: {{s.data.availability.menu}}</p>
+                <p>Special: {{s.data.availability.special}}</p>
+            </mat-card-content>
+            <mat-card-actions class="buttonGroup">
+                <a matButton="filled" [routerLink]="['/dishes', s.data._id, 'edit']">Edit</a>
+                <button matButton="outlined" [disabled]="deleting()" (click)="deleteDish(s.data)">Delete</button>
+                @if (deleteError(); as message) {
+                  <p class="error">{{ message }}</p>
+                }
+            </mat-card-actions>
+        </mat-card>
 
-@let s = state();
-@if (s.status === 'loading') {
-    <p>Loading car details...</p>
-} @else if (s.status === 'error') {
-    <p>{{ s.message }}</p>
-} @else {
-    <h2>{{ s.data.name }} {{ s.data.price }}</h2>
-    <p>Menu: {{s.data.availability.menu}}</p>
-    <p>Special: {{s.data.availability.special}}</p>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Ingredients</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                @for (ing of s.data.ingredients; track ing) {
+                    <p>{{ing.name}}: {{ing.quantity}}</p>
+                }   
+            </mat-card-content>
+        </mat-card>
     
-    <h3>Ingredients</h3>
-    @for (ing of s.data.ingredients; track ing) {
-        <p>{{ing.name}}: {{ing.quantity}}</p>
-    }
-
-    <h3>Allergens</h3>
-    @if(s.data.allergens){
-        @for (all of s.data.allergens; track all) {
-            <p>{{all.name}} from {{all.ingredients}}</p>
-        }
-    }
-
-    <a matButton="filled" [routerLink]="['/dishes', s.data._id, 'edit']">Edit</a>
-    <button matButton="outlined" [disabled]="deleting()" (click)="deleteDish(s.data)">Delete</button>
-    @if (deleteError(); as message) {
-      <p class="error">{{ message }}</p>
-    }
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Allergens</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                @if(s.data.allergens){
+                    @for (all of s.data.allergens; track all) {
+                        <p>{{all.name}} from {{all.ingredients}}</p>
+                    }
+                }
+            </mat-card-content>
+        </mat-card>
+        
     
-}
+        
+    }
+</div>

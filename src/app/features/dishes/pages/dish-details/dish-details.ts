@@ -6,9 +6,16 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { LoadState, withLoadState } from '../../../../shared/load-state';
 import { RouterLink, Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardActions, MatCardTitle, MatCardSubtitle, MatCardHeader, MatCardContent } from '@angular/material/card';
 @Component({
   selector: 'app-dish-details',
-  imports: [RouterLink, MatButton],
+  imports: [
+    RouterLink, MatButton,
+    MatCard, MatCardActions,
+    MatCardTitle, MatCardSubtitle,
+    MatCardHeader,
+    MatCardContent
+],
   templateUrl: './dish-details.html',
   styleUrl: './dish-details.scss',
 })

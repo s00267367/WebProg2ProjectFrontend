@@ -40,3 +40,12 @@ body {
 *{
   box-sizing: border-box;
 }
+.buttonGroup{
+  display: flex;
+  flex-direction: row;
+  padding: .5rem;
+  justify-content: center;
+}
+.buttonGroup > *{
+  margin: 10px 10px 0px 10px;
+}

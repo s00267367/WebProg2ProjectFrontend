@@ -1,0 +1,27 @@
+#detail-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  #detail-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #detail-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}
+
+mat-card{
+    text-align: center;
+}
