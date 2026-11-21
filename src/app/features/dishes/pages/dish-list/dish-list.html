@@ -6,6 +6,31 @@
         Add New
     </a>
   </div>
+  
+  <form [formGroup]="filterForm" class="topMenu" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Menu</mat-label>
+      <mat-select formControlName="menu">
+          <mat-option value="breakfast">Breakfast</mat-option>
+          <mat-option value="lunch">Lunch</mat-option>
+          <mat-option value="dinner">Dinner</mat-option>
+          <mat-option value="dessert">Dessert</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Special</mat-label>
+      <mat-select formControlName="special">
+          <mat-option [value]="true">True</mat-option>
+          <mat-option [value]="false">False</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button matButton="filled" type="submit">
+      Apply filters
+    </button>
+  </form>
+
   <div class="dish-list-container">
   
     @let s = state();
